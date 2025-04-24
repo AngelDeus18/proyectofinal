@@ -1,0 +1,289 @@
+body {
+    font-family: 'Dosis', sans-serif;
+    background: linear-gradient(123deg, #2E99B0 0%, #2E99B0 40%, #FCD77F calc(40% + 1px), #FCD77F 60%, #FF2E4C calc(60% + 1px), #FF2E4C 75%, #1E1548 calc(75% + 1px), #1E1548 100%);
+    display: flex;
+    min-height: 100vh;
+}
+
+.formulario {
+    background-color:white;
+    margin: auto;
+    width: 90%;
+    max-width: 400px;
+    padding: 4.5em 3em;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px -5px rgb(0 0 0 /30%);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+
+}
+.formulario h1{
+    font-size: 2rem;
+    margin-bottom: .5em;
+}
+.formulario .container{
+    margin-top: 3em;
+    display: grid;
+    gap: 2.5em;
+}
+.formulario .congrup{
+    position: relative;
+    --color:#5757577e;
+}
+.form_input{
+    width: 100%;
+    background-color: none ;
+    color: #706c6c;
+    font-size: 1rem;
+    padding: .6em .3em;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+    font-family: 'Dosis', sans-serif;
+}
+
+.form_input:focus + .form_label,
+.form_input:not(:placeholder-shown)+ .form_label {
+    transform: translateY(-12px) scale(.8);
+    transform-origin: left top;
+    color: #1E3A8A;
+}
+
+.form_label{
+    color: var(--color);
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+.form_submit{
+    background: #1E3A8A;
+    color: white;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    padding: .8em 0;
+    border: none;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.6s ease;
+}
+.form_submit[type="submit"]:hover {
+    background-color: #3B82F6;
+    transform: scale(1.10);
+}
+
+.form_line{
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color:#1E3A8A;
+    transform: scale(0);
+    transform: left bottom;
+}
+.form_input:focus ~ .form_line,
+.form_input:not(:placeholder-shown) ~ .form_line {
+    transform: scale(1);
+}
+/*conteneder del background*/
+@keyframes animate {
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background: #43467a;
+    overflow: hidden;
+    z-index: 0;
+}
+.background li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 7s linear infinite;
+}
+
+
+
+
+.background li:nth-child(0) {
+    left: 24%;
+    width: 260px;
+    height: 260px;
+    bottom: -260px;
+    animation-delay: 1s;
+}
+.background li:nth-child(1) {
+    left: 0%;
+    width: 173px;
+    height: 173px;
+    bottom: -173px;
+    animation-delay: 2s;
+}
+.background li:nth-child(2) {
+    left: 31%;
+    width: 404px;
+    height: 404px;
+    bottom: -404px;
+    animation-delay: 7s;
+}
+.background li:nth-child(3) {
+    left: 8%;
+    width: 402px;
+    height: 402px;
+    bottom: -402px;
+    animation-delay: 7s;
+}
+.background li:nth-child(4) {
+    left: 65%;
+    width: 205px;
+    height: 205px;
+    bottom: -205px;
+    animation-delay: 1s;
+}
+.background li:nth-child(5) {
+    left: 81%;
+    width: 363px;
+    height: 363px;
+    bottom: -363px;
+    animation-delay: 13s;
+}
+.background li:nth-child(6) {
+    left: 51%;
+    width: 272px;
+    height: 272px;
+    bottom: -272px;
+    animation-delay: 13s;
+}
+.background li:nth-child(7) {
+    left: 79%;
+    width: 315px;
+    height: 315px;
+    bottom: -315px;
+    animation-delay: 2s;
+}
+.background li:nth-child(8) {
+    left: 79%;
+    width: 295px;
+    height: 295px;
+    bottom: -295px;
+    animation-delay: 40s;
+}
+.background li:nth-child(9) {
+    left: 22%;
+    width: 341px;
+    height: 341px;
+    bottom: -341px;
+    animation-delay: 30s;
+}
+.background li:nth-child(10) {
+    left: 31%;
+    width: 282px;
+    height: 282px;
+    bottom: -282px;
+    animation-delay: 7s;
+}
+.background li:nth-child(11) {
+    left: 77%;
+    width: 269px;
+    height: 269px;
+    bottom: -269px;
+    animation-delay: 4s;
+}
+.background li:nth-child(12) {
+    left: 52%;
+    width: 235px;
+    height: 235px;
+    bottom: -235px;
+    animation-delay: 39s;
+}
+.background li:nth-child(13) {
+    left: 75%;
+    width: 179px;
+    height: 179px;
+    bottom: -179px;
+    animation-delay: 45s;
+}
+.background li:nth-child(14) {
+    left: 49%;
+    width: 363px;
+    height: 363px;
+    bottom: -363px;
+    animation-delay: 17s;
+}
+.background li:nth-child(15) {
+    left: 41%;
+    width: 296px;
+    height: 296px;
+    bottom: -296px;
+    animation-delay: 56s;
+}
+.background li:nth-child(16) {
+    left: 55%;
+    width: 188px;
+    height: 188px;
+    bottom: -188px;
+    animation-delay: 5s;
+}
+/*fin del background*/
+
+/* alerta personalizada */
+.alert {
+    padding: 1em 1.5em;
+    margin: 1em auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 350px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+    z-index: 20;
+}
+
+.alert.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border-left: 6px solid #10b981;
+}
+
+.alert.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-left: 6px solid #ef4444;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

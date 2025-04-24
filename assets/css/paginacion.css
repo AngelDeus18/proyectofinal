@@ -1,0 +1,35 @@
+.paginacion {
+    margin-top: 20px;
+    text-align: center;
+    animation: slideUp 1s ease-in-out;
+}
+
+.paginacion a, .paginacion .pagina-actual {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.paginacion .pagina-actual {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+}
+
+.paginacion a:hover {
+    background-color: #ccc;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
