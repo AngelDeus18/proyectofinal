@@ -3,7 +3,6 @@ session_start();
 $rolesPermitidos = [1];
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/conexion.php";
-include "../../ConexionSQL/admin-scripts/new-insumo.php";
 include "../../ConexionSQL/admin-scripts/eliminar-insumos.php";
 include "../../ConexionSQL/admin-scripts/modificar-insumos.php";
 include "../../ConexionSQL/paginacion.php";
@@ -64,8 +63,10 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
     <main>
         <div class="formulario">
             <h1>INGRESAR INSUMO</h1>
-            <?= $mensaje?>
-            <form method="post">
+            <div><?=
+                    $mensaje = "";
+                    $mensaje ?></div>
+            <form id="form-insumo">
                 <div class="cotainer">
                     <div class="congrup">
                         <input type="hidden" id="id" class="form_input" name="id">
@@ -135,9 +136,6 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                                     echo "<td><a id='editar-" . $datos->id . "' class='my-button-editar'>Editar</a>  
                                 <a href='admin-insumos.php?id=" . $datos->id . "'><button class='my-button-eliminar'>Eliminar</button></a></td>";
                                 }
-                            } else {
-                                $mensaje = '<div class="alert error">⚠️ No se encontraron resultados.</div>';
-                                echo "<tr><td colspan='10'>$mensaje</td></tr>";
                             }
                         }
                         $conn->close();
@@ -150,22 +148,8 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
             </div>
         </div>
     </main>
-    <script>
-        document.querySelectorAll('.my-button-editar').forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const form = document.querySelector('.formulario form');
-                const rowData = button.closest('tr').querySelectorAll('td');
-                form['id'].value = rowData[0].innerText;
-                form.nombre.value = rowData[1].innerText;
-                form.descripcion.value = rowData[2].innerText;
-                form.estado.value = rowData[3].innerText;
-                form['fecha-registro'].value = rowData[4].innerText;
-                form.action = '../../ConexionSQL/admin-scripts/modificar-insumos.php';
-                const submitButton = document.querySelector('.form_submit');
-                submitButton.value = 'Editar Valores';
-            });
-        });
-    </script>
+    <script src="../../ConexionSQL/Js/insumos.js"></script>
+
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 

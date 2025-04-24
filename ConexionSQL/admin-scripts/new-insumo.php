@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../conexion.php';
-$mensaje = '';
+$response = ['success' => false, 'message' => ''];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST["nombre"]) && !empty($_POST["descripcion"]) && !empty($_POST["estado"]) && !empty($_POST["fecha-registro"])) {
         $sql = "INSERT INTO insumos (NomInsumo, Descripcion, Estado, FechaRegistro) VALUES (?, ?, ?, ?)";
@@ -8,16 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ssss", $_POST["nombre"], $_POST["descripcion"], $_POST["estado"], $_POST["fecha-registro"]);
 
         if ($stmt->execute()) {
-            $mensaje = '<div class="alert success">✅ Registrando insumo correctamente.</div>';
-            echo '$mensaje';
+            $response['success'] = true;
+            $response['message'] = '✅ Insumo registrado correctamente.';
+            $response['insert_id'] = $stmt->insert_id;
         } else {
-            $mensaje = '<div class="alert eror">✅ Error al registrar el insumo: ' . $stmt->error . '</div>';
-            echo '$mensaje ' . $stmt->error . '</div>';
+            $response['message'] = '❌ Error al registrar el insumo: ' . $stmt->error;
         }
 
         $stmt->close();
     } else {
-        $mensaje = '<div class="alert error">⚠️ Todos los campos son obligatorios.</div>';
-        echo '$mensaje';
+        $response['message'] = '⚠️ Todos los campos son obligatorios.';
     }
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);
+exit;

@@ -1,7 +1,8 @@
 <?php
 include __DIR__ . '/../conexion.php';
 
-var_dump($_POST);
+$response = ['success' => false, 'message' => 'Error al actualizar el insumo.'];
+
 if (!empty($_POST["nombre"]) && !empty($_POST["descripcion"]) && !empty($_POST["estado"]) && !empty($_POST["fecha-registro"])) {
     $nombre = $_POST["nombre"];
     $descripcion = $_POST["descripcion"];
@@ -9,14 +10,20 @@ if (!empty($_POST["nombre"]) && !empty($_POST["descripcion"]) && !empty($_POST["
     $fhregistro = $_POST["fecha-registro"];
     $id = $_POST["id"];
 
-    $sql = $conn->query("UPDATE insumos SET NomInsumo='$nombre', Descripcion='$descripcion', Estado='$estado', FechaRegistro='$fhregistro' WHERE id='$id'");
-    if ($sql) {
-        header("location: /proyectofinal/php/administrador/admin-insumos.php");
-        exit();
+    if (isset($id) && is_numeric($id)) {
+        $sql = $conn->query("UPDATE insumos SET NomInsumo='$nombre', Descripcion='$descripcion', Estado='$estado', FechaRegistro='$fhregistro' WHERE id='$id'");
+
+        if ($sql) {
+            $response = ['success' => true, 'message' => 'Insumo actualizado correctamente.'];
+        } else {
+            $response['message'] = 'Error al actualizar: ' . $conn->error;
+        }
     } else {
-        echo "Error al actualizar el usuario: " . $conn->error;
+        $response['message'] = 'ID no válido.';
     }
 } else {
-    echo "Campos vacíos";
+    $response['message'] = 'Campos vacíos, por favor rellene todos los campos.';
 }
+
+echo json_encode($response);
 ?>
