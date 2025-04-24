@@ -1,14 +1,19 @@
 <?php 
 include __DIR__ . '/../conexion.php';
 
-if(!empty($_GET["id"])){
-    $id = $_GET["id"];
+header('Content-Type: application/json');
+
+$response = ['success' => false, 'message' => 'ID no válido'];
+
+if (!empty($_GET["id"])) {
+    $id = $conn->real_escape_string($_GET["id"]);
     $sql = $conn->query("DELETE FROM insumos WHERE id='$id'");
+
     if ($sql) {
-        header("location: /proyectofinal/php/administrador/admin-insumos.php");
-        exit(); 
+        $response = ['success' => true, 'message' => 'Insumo eliminado correctamente'];
     } else {
-        echo "Error al eliminar el registro: " . $conn->error;
+        $response = ['success' => false, 'message' => 'Error al eliminar: ' . $conn->error];
     }
 }
-?>
+
+echo json_encode($response);

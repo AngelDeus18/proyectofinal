@@ -3,8 +3,6 @@ session_start();
 $rolesPermitidos = [1];
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/conexion.php";
-include "../../ConexionSQL/admin-scripts/eliminar-insumos.php";
-include "../../ConexionSQL/admin-scripts/modificar-insumos.php";
 include "../../ConexionSQL/paginacion.php";
 
 if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
@@ -110,7 +108,7 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                             <th>Nombre Insumo</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
-                            <th>Fecha Registro</th>
+                            <th>Fecha Registro <br>(yyyy-mm-dd)</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -133,8 +131,10 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                                     echo "<td class='descripcion'>" . $datos->Descripcion . "</td>";
                                     echo "<td>" . $datos->Estado . "</td>";
                                     echo "<td>" . $datos->FechaRegistro . "</td>";
-                                    echo "<td><a id='editar-" . $datos->id . "' class='my-button-editar'>Editar</a>  
-                                <a href='admin-insumos.php?id=" . $datos->id . "'><button class='my-button-eliminar'>Eliminar</button></a></td>";
+                                    echo "<td>
+                                    <a id='editar-" . $datos->id . "' class='my-button-editar'>Editar</a>  
+                                    <button type='button' class='my-button-eliminar' data-id='" . $datos->id . "'>Eliminar</button>
+                                  </td>";
                                 }
                             }
                         }
