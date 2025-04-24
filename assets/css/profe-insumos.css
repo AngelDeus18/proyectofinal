@@ -1,8 +1,11 @@
-body {
-    font-family: 'Dosis', sans-serif;
-    background-color: #E3E3E3;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Urbanist', 'Rubik', sans-serif;
+    background: linear-gradient(135deg, #f6f9fc, #dbeafe);
+    overflow-x: hidden; 
 }
 
 main {

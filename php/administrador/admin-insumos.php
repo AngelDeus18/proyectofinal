@@ -80,10 +80,10 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                         <span class="form_line"></span>
                     </div>
                     <div class="congrup">
-                        <select id="estado" class="form_input" placeholder=" " name="estado">
-                            <option value="1"></option>
+                        <select id="estado" class="form_input" name="estado">
+                            <option value="" disabled selected>Selecciona un estado</option>
                             <option value="Disponible">Disponible</option>
-                            <option value="No disponibe">No disponible</option>
+                            <option value="No disponible">No disponible</option>
                             <option value="Averiado">Averiado</option>
                         </select>
                         <label for="estado" class="form_label">Estado</label>

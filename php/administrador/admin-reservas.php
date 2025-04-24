@@ -2,7 +2,6 @@
 session_start();
 $rolesPermitidos = [1];
 
-include "../../ConexionSQL/admin-scripts/new-insumo.php";
 include "../../ConexionSQL/admin-scripts/eliminar-reserva.php";
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/paginacion.php";
@@ -31,7 +30,6 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Phudu:wght@500&family=Prompt:ital,wght@1,900&family=Rubik:wght@500&family=Urbanist&display=swap"
         rel="stylesheet">
-    <title>Document</title>
     <title>Document</title>
 </head>
 

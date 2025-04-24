@@ -1,9 +1,11 @@
-body {
-    font-family: 'Dosis', sans-serif;
-    overflow: hidden;
-    background-color: #F3F4F6;
+html,body {
+    height: 100%;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Urbanist', 'Rubik', sans-serif;
+    background: linear-gradient(135deg, #f6f9fc, #dbeafe);
+    overflow-x: hidden; 
 }
 main {
     display: flex;

@@ -33,7 +33,9 @@
 
             if (data.success) {
                 form.reset();
-                form.querySelector('input[type="submit"]').value = isEditMode ? 'Editar Insumo' : 'Registrar';
+                form.action = '../../ConexionSQL/admin-scripts/new-insumo.php'; // <-- volver al modo registro
+                form.querySelector('input[type="submit"]').value = 'Registrar';  // <-- cambiar texto del botón
+            
 
                 const id = isEditMode ? form['id'].value : data.insert_id ?? '—';
                 const nombre = formData.get("nombre");
