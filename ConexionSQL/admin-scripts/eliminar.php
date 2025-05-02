@@ -1,20 +1,19 @@
 <?php 
 include __DIR__ . '/../conexion.php';
 
+header('Content-Type: application/json');
+
+$respose= ['success' => false, 'message' => 'ID no válido'];
+
 if (!empty($_GET["id"])) {
-    $id = $_GET["id"];
-    $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $id = $conn->real_escape_string($_GET["id"]);
+    $sql = $conn->query("DELETE FROM usuarios WHERE id='$id'");
 
-    if ($stmt->execute()) {
-        header("Location: ../../php/administrador/administrador-gestion-usuario.php");
-        exit(); 
+    if ($sql) {
+        $respose = ['success' => true, 'message' => 'Usuario eliminado correctamente'];
     } else {
-        echo "Error al eliminar el registro: " . $conn->error;
+        $respose = ['success' => false, 'message' => 'Error al eliminar: ' . $conn->error];
     }
-
-    $stmt->close();
 }
-
-$conn->close();
+echo json_encode($respose);
 ?>

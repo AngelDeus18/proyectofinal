@@ -1,26 +1,29 @@
 <?php
 include __DIR__ . '/../conexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST["nombre"]) && !empty($_POST["email"]) && !empty($_POST["cedula"])&& !empty($_POST["contraseña"]) && !empty($_POST["rol"])) {
-        $nombre = $_POST["nombre"];
-        $email = $_POST["email"];
-        $cedula = $_POST["cedula"];
-        $contraseña=$_POST["contraseña"];
-        $id_roles = $_POST["rol"];
-        $id = $_POST["id"];
+$responese = ['success' => false, 'message' => 'Error al actualizar el usuario.'];
 
-        $sql = $conn->query("UPDATE usuarios SET nombre='$nombre', email='$email', cedula='$cedula',contraseña='$contraseña', id_roles='$id_roles' WHERE id='$id'");
+if (!empty($_POST["nombre"]) && !empty($_POST["email"]) && !empty($_POST["cedula"]) && !empty($_POST["contraseña"])) {
+    $nombre = $_POST["nombre"];
+    $email = $_POST["email"];
+    $cedula = $_POST["cedula"];
+    $contraseña = $_POST["contraseña"];
+    $id_roles = $_POST["rol"];
+    $id = $_POST["id"];
+
+    if (isset($id) && is_numeric($id)) {
+        $sql = $conn->query("UPDATE usuarios SET nombre='$nombre', email='$email', cedula='$cedula', contraseña='$contraseña', id_roles='$id_roles' WHERE id='$id'");
+
         if ($sql) {
-            header("Location: /proyectofinal/php/administrador/administrador-gestion-usuario.php");
-            exit(); 
+            $responese = ['success' => true, 'message' => 'Usuario actualizado correctamente.'];
         } else {
-            echo "Error al actualizar el usuario: " . $conn->error;
+            $responese['message'] = 'Error al actualizar: ' . $conn->error;
         }
     } else {
-        echo "Campos vacíos";
+        $responese['message'] = 'ID no válido.';
     }
 } else {
-    echo "Acceso no autorizado";
+    $responese['message'] = 'Campos vacíos, por favor rellene todos los campos.';
 }
+echo json_encode($responese);
 ?>

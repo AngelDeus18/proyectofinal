@@ -10,15 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             $response['success'] = true;
-            $response['message'] = '✅ Insumo registrado correctamente.';
+            $response['message'] = 'Insumo registrado correctamente.';
             $response['insert_id'] = $stmt->insert_id;
         } else {
-            $response['message'] = '❌ Error al registrar el insumo: ' . $stmt->error;
+            $response['message'] = 'Error al registrar el insumo: ' . $stmt->error;
         }
 
         $stmt->close();
     } else {
-        $response['message'] = '⚠️ Todos los campos son obligatorios.';
+        $response['message'] = 'Todos los campos son obligatorios.';
     }
 }
 

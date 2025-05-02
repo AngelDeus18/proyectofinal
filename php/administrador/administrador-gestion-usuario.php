@@ -24,6 +24,7 @@ $nombreUsuario = $_SESSION['nombre'];
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/administrador.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/menu.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/paginacion.css">
+    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/alerts.css">
     <link rel="stylesheet" href="../fontawesome/fontawesome-free-6.5.1-web/css/all.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +56,11 @@ $nombreUsuario = $_SESSION['nombre'];
     <div class="boton-modal">
         <label for="btn-modal" class="boton-new">Nuevo</label>
     </div>
-
+    <div class="alertas">
+        <div><?=
+                $mensaje = "";
+                $mensaje ?></div>
+    </div>
     <input type="checkbox" id="btn-modal">
     <div class="container-form">
         <div class="crud">
@@ -96,7 +101,7 @@ $nombreUsuario = $_SESSION['nombre'];
                                 echo "<td>" . $datos->contraseña . "</td>";
                                 echo "<td>" . $datos->rol . "</td>";
                                 echo "<td><a id='editar" . $datos->id . "' class='my-button-editar'>Editar</a>  
-                                    <a href='../../ConexionSQL/admin-scripts/eliminar.php?id=" . $datos->id . "'><button class='my-button-eliminar'>Eliminar</button></a></td>";
+                                    <button class='my-button-eliminar' data-id='" . $datos->id . "'>Eliminar</button>";
                             }
                         } else {
                             echo "No se encontraron resultados.";
@@ -116,9 +121,9 @@ $nombreUsuario = $_SESSION['nombre'];
             <div class="modal-header">
                 <h2><span id="modal-title">Nueva</span> Persona</h2>
             </div>
-            <div id="modal-message"></div>
             <div class="formulario">
-                <form method="post" action="" id="formulario-usuario">
+                <!-- <h2>INGRESAR USUARIO</h2> -->
+                <form method="POST" action="" id="formulario-usuario">
                     <div class="cotainer">
                         <div class="congrup">
                             <input type="hidden" id="id" class="form_input" name="id">
@@ -161,67 +166,10 @@ $nombreUsuario = $_SESSION['nombre'];
                 </form>
             </div>
         </div>
-        <label for="btn-modal" class="cerrar-modal"></label>
     </div>
-
-    <script>
-        document.querySelectorAll('.my-button-editar').forEach((button) => {
-            button.addEventListener('click', () => {
-                const modal = document.querySelector('.container-modal');
-                const modalHeader = document.querySelector('.modal-header h2');
-                const form = document.querySelector('#formulario-usuario');
-
-                modalHeader.innerText = 'Editar Persona';
-                const rowData = button.closest('tr').querySelectorAll('td');
-
-                form.id.value = rowData[0].innerText;
-                form.nombre.value = rowData[1].innerText;
-                form.email.value = rowData[2].innerText;
-                form.cedula.value = rowData[3].innerText;
-                form.contraseña.value = rowData[4].innerText;
-                const rolNombre = rowData[5].innerText.trim();
-                let rolValue = '';
-                switch (rolNombre) {
-                    case 'Administrador':
-                        rolValue = '1';
-                        break;
-                    case 'Supervisor':
-                        rolValue = '2';
-                        break;
-                    case 'Funcionario':
-                        rolValue = '3';
-                        break;
-                }
-                form.rol.value = rolValue;
-
-                form.action = '../../ConexionSQL/admin-scripts/modificar-usuario.php';
-                document.querySelector('.form_submit').value = 'Actualizar';
-
-                modal.style.display = 'block';
-            });
-        });
-
-        document.querySelector('.boton-modal').addEventListener('click', () => {
-            const form = document.querySelector('#formulario-usuario');
-            form.reset();
-
-            form.action = '../../ConexionSQL/admin-scripts/ingresar.php';
-            document.querySelector('#id').value = '';
-            document.querySelector('.modal-header h2').innerText = 'Nueva Persona';
-            document.querySelector('.form_submit').value = 'Guardar';
-
-            const modal = document.querySelector('.container-modal');
-            modal.style.display = 'block';
-        });
-
-        document.querySelector('.btn-cerrar').addEventListener('click', () => {
-            document.querySelector('.container-modal').style.display = 'none';
-        });
-
-        document.querySelector('.cerrar-modal').addEventListener('click', () => {
-            document.querySelector('.container-modal').style.display = 'none';
-        });
-    </script>
+    <label for="btn-modal" class="cerrar-modal"></label>
+    </div>
+    <script src="../../ConexionSQL/Js/users.js"></script>
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 
