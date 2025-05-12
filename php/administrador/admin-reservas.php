@@ -5,13 +5,9 @@ $rolesPermitidos = [1];
 include "../../ConexionSQL/admin-scripts/eliminar-reserva.php";
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/paginacion.php";
+include '../../assets/includes/header.php'; 
+include '../../assets/includes/sidebar.php';
 
-
-if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
-    $nombreUsuario = $_SESSION['nombre'];
-} else {
-    $nombreUsuario = "";
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +15,6 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/menu-abajo.css">
-    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/menu.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/reserva-admin.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/paginacion.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/alerts.css">
@@ -34,34 +28,6 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
 </head>
 
 <body>
-    <nav>
-        <input type="checkbox" id="toogle">
-        <div class="logo"> Software 4U</div>
-        <ul class="list">
-            <li><a href="admin-inicio.php">Inicio</a></li>
-            <li><a href="administrador-gestion-usuario.php">Usuarios</a></li>
-            <li><a href="admin-insumos.php">Insumos</a></li>
-            <i class="fa-solid fa-user"></i>
-            <li>
-                <?php echo $nombreUsuario . " "; ?>
-            </li>
-            <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
-        </ul>
-
-        <label for="toogle" class="icon-bars">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </label>
-    </nav>
-    <nav class="menu_abajo">
-        <ul class="lista_abajo">
-            <li><a href="admin-insumos.php">Insumos</a></li>
-            <li><a href="admin-reservas.php">Reservas</a></li>
-            <!-- <li><a href="../fpdf/ReporteReservas.php" class="btn-reporte" target="_blank"><i
-                        class="fa-solid fa-download"></i> Generar reporte</a></li> -->
-        </ul>
-    </nav>
     <main>
         <div class="container-form">
             <div class="crud">

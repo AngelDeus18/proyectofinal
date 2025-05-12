@@ -3,9 +3,14 @@ session_start();
 $rolesPermitidos = [1];
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/paginacion.php";
-include "../../ConexionSQL/admin-scripts/buscar-insumo.php";
 include '../../assets/includes/header.php';
 include '../../assets/includes/sidebar.php';
+
+if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
+    $nombreUsuario = $_SESSION['nombre'];
+} else {
+    $nombreUsuario = "";
+}
 
 $sqlTiposInsumos = "SELECT id, nombre FROM tipos_insumos";
 $resultTiposInsumos = $conn->query($sqlTiposInsumos);
@@ -17,17 +22,23 @@ if ($resultTiposInsumos) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Insumos</title>
-    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/admi-insumos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/menu-abajo.css">
+    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/menu.css">
+    <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/tipo-insumos.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/paginacion.css">
     <link rel="stylesheet" href="http://localhost/proyectofinal/assets/css/alerts.css">
+    <link rel="stylesheet" href="../fontawesome/fontawesome-free-6.5.1-web/css/all.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Phudu:wght@500&family=Prompt:ital,wght@1,900&family=Rubik:wght@500&family=Urbanist&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Phudu:wght@500&family=Prompt:ital,wght@1,900&family=Rubik:wght@500&family=Urbanist&display=swap"
+        rel="stylesheet">
+    <title>Document</title>
 </head>
 
 <body>
@@ -51,53 +62,15 @@ if ($resultTiposInsumos) {
                         <form id="form-insumo">
                             <div class="cotainer">
                                 <input type="hidden" id="id" name="id">
-
                                 <div class="congrup">
-                                    <select id="name" name="nombre" class="form_input" required>
-                                        <option value="" disabled selected>Selecciona un tipo</option>
-                                        <?php foreach ($tiposInsumos as $tipo): ?>
-                                            <option value="<?= $tipo['id'] ?>"><?= htmlspecialchars($tipo['nombre']) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label for="name" class="form_label">Nombre Insumo</label>
+                                    <input type="text" id="typeInsum" name="tipoinsumo" class="form_input" placeholder="Ingrese el tipo de insumo" required>
+                                    <label for="typeInsum" class="form_label">Tipo de insumo</label>
                                     <span class="form_line"></span>
                                 </div>
-
-                                <div class="congrup">
-                                    <input type="text" id="description" name="descripcion" class="form_input" placeholder="Ingrese la descripción" required>
-                                    <label for="description" class="form_label">Descripción</label>
-                                    <span class="form_line"></span>
-                                </div>
-
-                                <div class="congrup">
-                                    <input type="number" id="quantity" name="cantidad" class="form_input" placeholder="Ingrese la cantidad" required>
-                                    <label for="quantity" class="form_label">Cantidad</label>
-                                    <span class="form_line"></span>
-                                </div>
-
-                                <div class="congrup">
-                                    <select id="estado" name="estado" class="form_input" required>
-                                        <option value="" disabled selected>Selecciona un estado</option>
-                                        <option value="Disponible">Disponible</option>
-                                        <option value="Prestado">Prestado</option>
-                                        <option value="No disponible">No disponible</option>
-                                    </select>
-                                    <label for="estado" class="form_label">Estado</label>
-                                    <span class="form_line"></span>
-                                </div>
-
-                                <div class="congrup">
-                                    <input type="datetime-local" id="fecha-registro" name="fecha-registro" class="form_input" required>
-                                    <label for="fecha-registro" class="form_label">Fecha registro</label>
-                                    <span class="form_line"></span>
-                                </div>
-
                                 <input type="submit" value="Registrar" class="form_submit">
                             </div>
                         </form>
                     </div>
-
-                    <!-- Tabla de insumos -->
                     <div class="container-tabla">
                         <div class="crud">
                             <table>
@@ -105,10 +78,6 @@ if ($resultTiposInsumos) {
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre Insumo</th>
-                                        <th>Descripción</th>
-                                        <th>Cantidad</th>
-                                        <th>Estado</th>
-                                        <th>Fecha Registro</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -116,9 +85,7 @@ if ($resultTiposInsumos) {
                                     <?php
                                     $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
                                     $registrosPorPagina = 6;
-                                    $sqlBase = "SELECT Insumos.id, tipos_insumos.nombre AS TipoNombre, Insumos.Descripcion, Insumos.Cantidad, Insumos.Estado, Insumos.FechaRegistro
-                                                FROM Insumos
-                                                LEFT JOIN tipos_insumos ON Insumos.tipo_id_nombre = tipos_insumos.id";
+                                    $sqlBase = "SELECT * FROM tipos_insumos ORDER BY id ASC";
 
                                     $result = obtenerDatosPaginados($conn, $sqlBase, $paginaActual, $registrosPorPagina);
                                     $totalPaginas = obtenerTotalPaginas($conn, $sqlBase, $registrosPorPagina);
@@ -127,11 +94,7 @@ if ($resultTiposInsumos) {
                                         while ($datos = $result->fetch_object()) {
                                             echo "<tr>
                                                     <td>{$datos->id}</td>
-                                                    <td>" . htmlspecialchars($datos->TipoNombre) . "</td>
-                                                    <td class='descripcion'>" . htmlspecialchars($datos->Descripcion) . "</td>
-                                                    <td>{$datos->Cantidad}</td>
-                                                    <td>{$datos->Estado}</td>
-                                                    <td>{$datos->FechaRegistro}</td>
+                                                    <td class='descripcion'>" . htmlspecialchars($datos->nombre) . "</td>
                                                     <td class='acciones'>
                                                         <a id='editar-{$datos->id}' class='my-button-editar'>Editar</a>
                                                         <button type='button' class='my-button-eliminar' data-id='{$datos->id}'>Eliminar</button>
@@ -155,10 +118,8 @@ if ($resultTiposInsumos) {
             </section>
         </div>
     </main>
-
-    <!-- Scripts -->
-    <script src="../../ConexionSQL/Js/insumos.js"></script>
-    <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
+    <script src="../../ConexionSQL/Js/tipo-insumos.js"></script>
 </body>
+<script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 
 </html>

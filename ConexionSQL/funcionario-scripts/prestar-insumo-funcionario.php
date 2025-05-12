@@ -7,14 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["insprestado"]) && !em
     $insumoID = $_POST["InsumoID"];
     $fechaInicio = date("Y-m-d H:i:s", strtotime($_POST["fecha-prestamo"]));
     $fechaFin = date("Y-m-d H:i:s", strtotime($_POST["fecha-entrega"]));
-    $estadoReserva = "No disponible";
+    $estadoReserva = "Prestado";
 
     $sqlReserva = "INSERT INTO Reservas (UsuarioID, InsumoID, FechaInicio, FechaFin, Estado) VALUES (?, ?, ?, ?, ?)";
     $stmtReserva = $conn->prepare($sqlReserva);
     $stmtReserva->bind_param("iissi", $usuarioID, $insumoID, $fechaInicio, $fechaFin, $estadoReserva);
 
     if ($stmtReserva->execute()) {
-        $sqlActualizarInsumo = "UPDATE Insumos SET Estado = 'No disponible' WHERE id = ?";
+        $sqlActualizarInsumo = "UPDATE Insumos SET Estado = 'Prestado' WHERE id = ?";
         $stmtActualizarInsumo = $conn->prepare($sqlActualizarInsumo);
         $stmtActualizarInsumo->bind_param("i", $insumoID);
         

@@ -1,19 +1,11 @@
 <?php
-session_start(); 
+session_start();
 $rolesPermitidos = [1];
 
 include "../../ConexionSQL/verificar-acceso.php";
-include "../../ConexionSQL/conexion.php";
-
-if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
-    $nombreUsuario = $_SESSION['nombre'];
-} else {
-    $nombreUsuario = "";
-}
+$pageTitle = 'Inicio Administración'; 
+include '../../assets/includes/header.php'; 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,35 +20,16 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
         rel="stylesheet">
     <title>Document</title>
 </head>
-
-<body>
-    <nav>
-        <input type="checkbox" id="toogle">
-        <div class="logo"> Software 4U</div>
-        <ul class="list">
-            <li><a href="admin-inicio.php">Inicio</a></li>
-            <li><a href="administrador-gestion-usuario.php">Usuarios</a></li>
-            <li><a href="admin-insumos.php">Insumos</a></li>
-            <i class="fa-solid fa-user"></i>
-            <li>
-                <?php echo $nombreUsuario . " "; ?>
-            </li>
-            <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
-        </ul>
-        <label for="toogle" class="icon-bars">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </label>
-    </nav>
-    <main class="welcome-container">
-        <div class="welcome-text">
-            <h1>Bienvenido <?php echo $nombreUsuario . " "; ?> a nuestro Sistema</h1>
-            <p> Confiamos en que puedas realizar préstamos de insumos de manera cómoda a través de Software 4U. 
-                <br>Estamos aquí para hacer que tu experiencia sea lo más fácil y conveniente posible."</p>
-            <div class="cta-button"><i class="fa-solid fa-handshake-simple"></i></div>
-        </div>
-    </main>
+<main class="welcome-container">
+    <div class="welcome-text">
+        <h1>Bienvenido <?php echo $_SESSION['nombre'] ?? ''; ?> a nuestro Sistema</h1>
+        <p> Confiamos en que puedas realizar préstamos de insumos de manera cómoda a través de Software 4U.
+            <br>Estamos aquí para hacer que tu experiencia sea lo más fácil y conveniente posible."
+        </p>
+        <div class="cta-button"><i class="fa-solid fa-handshake-simple"></i></div>
+    </div>
+</main>
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
+
 </html>

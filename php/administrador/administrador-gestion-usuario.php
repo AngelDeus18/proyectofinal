@@ -1,18 +1,11 @@
 <?php
 session_start();
 $rolesPermitidos = [1];
-
-if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
-    $nombreUsuario = $_SESSION['nombre'];
-} else {
-    $nombreUsuario = "";
-}
-include "../../ConexionSQL/conexion.php";
+$pageTitle = 'Usuarios administrador';
+include '../../assets/includes/header.php';
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/paginacion.php";
 
-
-$nombreUsuario = $_SESSION['nombre'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,24 +28,6 @@ $nombreUsuario = $_SESSION['nombre'];
 </head>
 
 <body>
-    <nav>
-        <input type="checkbox" id="toogle">
-        <div class="logo">Software 4U</div>
-        <ul class="list">
-            <li><a href="admin-inicio.php">Inicio</a></li>
-            <li><a href="administrador-gestion-usuario.php">Usuarios</a></li>
-            <li><a href="admin-insumos.php">Insumos</a></li>
-            <i class="fa-solid fa-user"></i>
-            <li><?php echo $nombreUsuario . " "; ?></li>
-            <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
-        </ul>
-        <label for="toogle" class="icon-bars">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </label>
-    </nav>
-
     <div class="boton-modal">
         <label for="btn-modal" class="boton-new">Nuevo</label>
     </div>
@@ -72,7 +47,7 @@ $nombreUsuario = $_SESSION['nombre'];
                         <th>Email</th>
                         <th>Cedula</th>
                         <th>Contraseña</th>
-                        <th>Id_roles</th>
+                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -122,7 +97,6 @@ $nombreUsuario = $_SESSION['nombre'];
                 <h2><span id="modal-title">Nueva</span> Persona</h2>
             </div>
             <div class="formulario">
-                <!-- <h2>INGRESAR USUARIO</h2> -->
                 <form method="POST" action="" id="formulario-usuario">
                     <div class="cotainer">
                         <div class="congrup">
