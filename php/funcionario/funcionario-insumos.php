@@ -67,6 +67,7 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
             <div class="grid-container">
                 <div class="formulario">
                     <h1>PRESTAR INSUMO</h1>
+                    <div id="mensaje"></div>
                     <form method="post">
                         <div class="cotainer">
                             <div class="congrup">
@@ -104,7 +105,7 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                 </div>
                 <div class="container-form">
                     <div class="crud">
-                        <table>
+                        <table id="tabla-insumos">
                             <thead>
                                 <th>Nombre</th>
                                 <th>Cantidad</th>
@@ -162,38 +163,7 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
                 </div>
             </div>
         </section>
-        <script>
-            document.querySelectorAll('.my-button-prestar').forEach((button, index) => {
-                button.addEventListener('click', () => {
-                    const form = document.querySelector('.formulario form');
-                    const rowData = button.closest('tr').querySelectorAll('td');
-                    form.insprestado.value = rowData[0].innerText;
-                    form.cantidad.value = rowData[1].innerText;
-                    form.descripcion.value = rowData[2].innerText;
-                    const insumoID = button.getAttribute('data-insumoid');
-                    form.InsumoID.value = insumoID;
-                    form.action = '../../ConexionSQL/funcionario-scripts/prestar-insumo-funcionario.php';
-
-                    // Establecer fecha y hora actual
-                    const now = new Date();
-                    const localISOTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-                    form['fecha-prestamo'].value = localISOTime;
-                    form['fecha-prestamo'].readOnly = true;
-                    form['fecha-prestamo'].style.backgroundColor = '#eee';
-                    form['fecha-prestamo'].addEventListener('keydown', e => e.preventDefault());
-                });
-            });
-        </script>
-        <script>
-            document.querySelectorAll('.categoria-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const categoria = button.getAttribute('data-categoria');
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('categoria', categoria);
-                    window.location.href = url.toString();
-                });
-            });
-        </script>
+        <script src="../../ConexionSQL/Js/prestar-insumo-funcionario.js"></script>
 
         <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
     </main>

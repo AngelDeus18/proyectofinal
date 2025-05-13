@@ -16,11 +16,28 @@ $usuarioID = $_SESSION['usuario_id'] ?? 0;
 $insumosPrestados = [];
 
 if ($usuarioID) {
-    $sql = "SELECT tipos_insumos.nombre AS NomInsumo, Reservas.FechaInicio, Reservas.FechaFin, Insumos.Descripcion
-        FROM Reservas
-        INNER JOIN Insumos ON Reservas.InsumoID = Insumos.id
-        INNER JOIN tipos_insumos ON Insumos.tipo_id_nombre = tipos_insumos.id
-        WHERE Reservas.UsuarioID = $usuarioID AND Reservas.Estado = 0";
+    $sql = "SELECT 
+            r.id AS reserva_id,
+            t.nombre AS nomInsumo,
+            i.Descripcion AS Descripcion,
+            i.id AS insumo_id,
+            r.CantidadPrestada AS cantidad,
+            u.nombre AS nombre_funcionario,
+            u.cedula AS cedula_funcionario,
+            r.FechaInicio,
+            r.FechaFin
+        FROM 
+            Reservas r
+        INNER JOIN 
+            usuarios u ON r.UsuarioID = u.id
+        INNER JOIN 
+            Insumos i ON r.InsumoID = i.id
+        INNER JOIN
+            tipos_insumos t ON i.tipo_id_nombre = t.id
+        WHERE 
+            r.Estado = 'Prestado'
+        ORDER BY r.id ASC
+            ";
 
     $result = $conn->query($sql);
     if ($result) {
@@ -66,27 +83,33 @@ if ($usuarioID) {
             <div class="line"></div>
         </label>
     </nav>
-    <div class="container">
-        <div class="content">
-            <h2>Hola <?php echo htmlspecialchars($nombreUsuario); ?> 👋</h2>
-            <p>Tienes prestado:</p>
+    <main class="container">
+        <section class="content">
+            <h1>Hola <?php echo htmlspecialchars($nombreUsuario); ?> 👋</h1>
+            <p class="subtitulo">Estos son los insumos que tienes prestados actualmente:</p>
 
             <?php if (empty($insumosPrestados)): ?>
-                <p style="color: #7f8c8d;">No tienes ningún insumo prestado actualmente.</p>
+                <p class="mensaje-vacio">No tienes ningún insumo prestado actualmente.</p>
             <?php else: ?>
-                <ul class="insumos-list">
+                <ul class="lista-insumos">
                     <?php foreach ($insumosPrestados as $insumo): ?>
-                        <li>
-                            <i class="fa-solid fa-box"></i>
-                            <strong><?php echo htmlspecialchars($insumo['NomInsumo']); ?></strong> —
-                            <?php echo htmlspecialchars($insumo['Descripcion']); ?><br>
-                            <small><i class="fa-regular fa-calendar"></i> Desde: <?php echo date('d/m/Y H:i', strtotime($insumo['FechaInicio'])); ?> hasta <?php echo date('d/m/Y H:i', strtotime($insumo['FechaFin'])); ?></small>
+                        <li class="item-insumo">
+                            <div class="info-principal">
+                                <i class="fa-solid fa-box icono-insumo"></i>
+                                <h3 class="nombre-insumo"><?php echo htmlspecialchars($insumo['nomInsumo']); ?></h3>
+                            </div>
+                            <p class="descripcion-insumo"><?php echo htmlspecialchars($insumo['Descripcion']); ?></p>
+                            <div class="detalles-insumo">
+                                <p><i class="fa-solid fa-plus icono-detalle"></i> Cantidad: <span class="valor-detalle"><?php echo $insumo['cantidad']; ?></span></p>
+                                <p><i class="fa-regular fa-calendar icono-detalle"></i> Desde: <span class="valor-detalle"><?php echo date('d/m/Y H:i', strtotime($insumo['FechaInicio'])); ?></span></p>
+                                <p><i class="fa-regular fa-calendar-check icono-detalle"></i> Hasta: <span class="valor-detalle"><?php echo date('d/m/Y H:i', strtotime($insumo['FechaFin'])); ?></span></p>
+                            </div>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
-        </div>
-    </div>
+        </section>
+    </main>
     <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 </body>
 
