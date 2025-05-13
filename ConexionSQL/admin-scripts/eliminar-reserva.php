@@ -1,36 +1,25 @@
 <?php
 include __DIR__ . '/../conexion.php';
 
-if (!empty($_GET["id"])) {
-    $id = $_GET["id"];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    $idReserva = (int)$_GET['id'];
 
-    $sqlObtenerInsumoID = $conn->prepare("SELECT InsumoID FROM reservas WHERE id = ?");
-    $sqlObtenerInsumoID->bind_param("i", $id);
-    $sqlObtenerInsumoID->execute();
-    $sqlObtenerInsumoID->bind_result($insumoID);
-    $sqlObtenerInsumoID->fetch();
-    $sqlObtenerInsumoID->close();
+    $sqlEliminarReserva = "DELETE FROM Reservas WHERE id = ?";
+    $stmtEliminarReserva = $conn->prepare($sqlEliminarReserva);
 
-    $sqlEliminarReserva = $conn->prepare("DELETE FROM reservas WHERE id = ?");
-    $sqlEliminarReserva->bind_param("i", $id);
+    if ($stmtEliminarReserva) {
+        $stmtEliminarReserva->bind_param("i", $idReserva);
 
-    if ($sqlEliminarReserva->execute()) {
-        $sqlActualizarInsumo = "UPDATE insumos SET Estado = 'Disponible' WHERE id = ?";
-        $stmtActualizarInsumo = $conn->prepare($sqlActualizarInsumo);
-        $stmtActualizarInsumo->bind_param("i", $insumoID);
-
-        if ($stmtActualizarInsumo->execute()) {
-            header("location: /proyectofinal/php/administrador/admin-reservas.php");
-            exit();
+        if ($stmtEliminarReserva->execute()) {
+            header("Location: /proyectofinal/php/administrador/admin-reservas.php?mensaje=eliminado");
+            exit;
         } else {
-            echo "Problemas al actualizar el estado del insumo: " . $stmtActualizarInsumo->error;
+            echo "Error al eliminar la reserva: " . $stmtEliminarReserva->error;
         }
 
-        $stmtActualizarInsumo->close();
+        $stmtEliminarReserva->close();
     } else {
-        echo "Error al eliminar la reserva: " . $sqlEliminarReserva->error;
+        echo "Error al preparar la eliminación: " . $conn->error;
     }
-
-    $sqlEliminarReserva->close();
 }
 ?>

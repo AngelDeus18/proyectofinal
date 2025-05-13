@@ -58,7 +58,8 @@ include "../../ConexionSQL/paginacion.php";
 
                     $sqlBase = "SELECT usuarios.id, usuarios.nombre, usuarios.email, usuarios.cedula, usuarios.contraseña, roles.descripcion AS rol 
                     FROM usuarios 
-                    INNER JOIN roles ON usuarios.id_roles = roles.id";
+                    INNER JOIN roles ON usuarios.id_roles = roles.id
+                    ORDER BY usuarios.id ASC";
 
                     $result = obtenerDatosPaginados($conn, $sqlBase, $paginaActual, $registrosPorPagina);
                     $totalPaginas = obtenerTotalPaginas($conn, $sqlBase, $registrosPorPagina);

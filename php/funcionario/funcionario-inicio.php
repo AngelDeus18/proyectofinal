@@ -33,21 +33,20 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
 <body>
     <nav>
         <input type="checkbox" id="toogle">
-        <div class="logo"> Software 4U</div>
-        <ul class="list">
-            <li><a href="funcionario-inicio.php">Inicio</a></li>
-            <li><a href="funcionario-insumos.php">Insumos</a></li>
-            <i class="fa-solid fa-user"></i>
-            <li>
-                <?php echo $nombreUsuario . " "; ?>
-            </li>
-            <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
-        </ul>
+        <div class="logo">Software 4U</div>
+
         <label for="toogle" class="icon-bars">
             <div class="line"></div>
             <div class="line"></div>
             <div class="line"></div>
         </label>
+
+        <ul class="list">
+            <li><a href="funcionario-inicio.php">Inicio</a></li>
+            <li><a href="funcionario-insumos.php">Insumos</a></li>
+            <li><i class="fa-solid fa-user"></i> <?php echo $nombreUsuario; ?></li>
+            <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
+        </ul>
     </nav>
     <main class="welcome-container">
         <div class="welcome-text">
@@ -60,7 +59,8 @@ if (isset($_SESSION['usuario_id']) && isset($_SESSION['nombre'])) {
             <div class="cta-button"><i class="fa-solid fa-handshake-simple"></i></div>
         </div>
     </main>
-    
+
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
+
 </html>

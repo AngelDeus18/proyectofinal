@@ -79,7 +79,6 @@ if ($resultTiposInsumos) {
                                     <select id="estado" name="estado" class="form_input" required>
                                         <option value="" disabled selected>Selecciona un estado</option>
                                         <option value="Disponible">Disponible</option>
-                                        <option value="Prestado">Prestado</option>
                                         <option value="No disponible">No disponible</option>
                                     </select>
                                     <label for="estado" class="form_label">Estado</label>
@@ -96,8 +95,6 @@ if ($resultTiposInsumos) {
                             </div>
                         </form>
                     </div>
-
-                    <!-- Tabla de insumos -->
                     <div class="container-tabla">
                         <div class="crud">
                             <table>
@@ -118,7 +115,8 @@ if ($resultTiposInsumos) {
                                     $registrosPorPagina = 6;
                                     $sqlBase = "SELECT Insumos.id, tipos_insumos.nombre AS TipoNombre, Insumos.Descripcion, Insumos.Cantidad, Insumos.Estado, Insumos.FechaRegistro
                                                 FROM Insumos
-                                                LEFT JOIN tipos_insumos ON Insumos.tipo_id_nombre = tipos_insumos.id";
+                                                LEFT JOIN tipos_insumos ON Insumos.tipo_id_nombre = tipos_insumos.id
+                                                ORDER BY Insumos.id ASC";
 
                                     $result = obtenerDatosPaginados($conn, $sqlBase, $paginaActual, $registrosPorPagina);
                                     $totalPaginas = obtenerTotalPaginas($conn, $sqlBase, $registrosPorPagina);

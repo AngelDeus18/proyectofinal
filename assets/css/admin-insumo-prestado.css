@@ -105,126 +105,101 @@ main {
     flex: 1;
     padding: 20px;
 }
-.crud {
-    width: 100%;
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.card {
     background-color: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    animation: slideUp 1s ease-in-out;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 20px;
-    overflow: hidden;
-    background-color: #ffffff;
-}
-
-thead {
-    background-color: #3B82F6;
-    color: white;
-}
-
-thead th {
-    padding: 15px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f7f7f7;
-}
-
-tbody tr:hover {
-    background-color: #f0f0f0;
-}
-
-td {
-    padding: 15px;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #333;
-}
-
-td.descripcion {
-    max-width: 200px;
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-/* Botones */
-.acciones {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-.my-button-editar,
-.my-button-eliminar {
-    padding: 10px 18px;
-    border: none;
     border-radius: 12px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-.my-button-editar {
-    background-color: #2ecc71;
-    color: white;
-}
-
-.my-button-editar:hover {
-    background-color: #27ae60;
-    transform: scale(1.05);
-}
-
-.my-button-eliminar {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.my-button-eliminar:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.pagination {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e1e1e1;
+    padding-bottom: 0.7rem;
+}
+
+.card-details {
+    margin-bottom: 1rem;
+}
+
+.card-details p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    display: flex;
     align-items: center;
-    padding: 10px;
+    gap: 0.5rem;
+}
+
+.card-details span {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-eliminar {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button-eliminar:hover {
+    background-color: #c0392b;
+}
+
+/*estilos para el mensaje de no hay datos*/
+.no-data-message {
+    width: 100%;
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #f8f9fa;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    margin-top: 2rem;
+    font-family: 'Urbanist', sans-serif;
+    color: #555;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.no-data-message i {
+    font-size: 3rem;
+    color: #4A90E2;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.no-data-message p {
+    font-size: 1.3rem;
+    font-weight: 500;
 }

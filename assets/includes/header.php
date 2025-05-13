@@ -39,4 +39,4 @@ $nombreUsuario = $_SESSION['nombre'];
             <div class="line"></div>
         </label>
     </nav>
-    
+</body>

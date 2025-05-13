@@ -4,22 +4,24 @@ $rolesPermitidos = [3];
 include "../../ConexionSQL/conexion.php";
 
 // Actualizar estados vencidos
-$conn->query("
-    UPDATE Insumos i
-    JOIN Reservas r ON i.id = r.InsumoID
-    SET i.Estado = 'Disponible', r.Estado = 'Disponible'
-    WHERE r.FechaFin < NOW() AND r.Estado = 'No disponible'
-");
+// $conn->query("
+//     UPDATE Insumos i
+//     JOIN Reservas r ON i.id = r.InsumoID
+//     SET i.Estado = 'Disponible', r.Estado = 'Disponible'
+//     WHERE r.FechaFin < NOW() AND r.Estado = 'No disponible'
+// ");
 
 $nombreUsuario = $_SESSION['nombre'] ?? '';
 $usuarioID = $_SESSION['usuario_id'] ?? 0;
 $insumosPrestados = [];
 
 if ($usuarioID) {
-    $sql = "SELECT Insumos.NomInsumo, Reservas.FechaInicio, Reservas.FechaFin, Insumos.Descripcion
-            FROM Reservas
-            INNER JOIN Insumos ON Reservas.InsumoID = Insumos.id
-            WHERE Reservas.UsuarioID = $usuarioID AND Reservas.Estado = 0";
+    $sql = "SELECT tipos_insumos.nombre AS NomInsumo, Reservas.FechaInicio, Reservas.FechaFin, Insumos.Descripcion
+        FROM Reservas
+        INNER JOIN Insumos ON Reservas.InsumoID = Insumos.id
+        INNER JOIN tipos_insumos ON Insumos.tipo_id_nombre = tipos_insumos.id
+        WHERE Reservas.UsuarioID = $usuarioID AND Reservas.Estado = 0";
+
     $result = $conn->query($sql);
     if ($result) {
         while ($row = $result->fetch_assoc()) {
@@ -53,10 +55,8 @@ if ($usuarioID) {
         <ul class="list">
             <li><a href="funcionario-inicio.php">Inicio</a></li>
             <li><a href="funcionario-insumos.php">Insumos</a></li>
-            <i class="fa-solid fa-user"></i>
-            <li>
-                <?php echo $nombreUsuario . " "; ?>
-            </li>
+            <li><a href="funcionario-prestado.php"><i class="fa-solid fa-plus"></i> Prestado</a></li>
+            <li><i class="fa-solid fa-user"></i> <?php echo $nombreUsuario; ?></li>
             <li><a href="../../ConexionSQL/cerrar.php">Salir</a></li>
         </ul>
 
@@ -65,12 +65,6 @@ if ($usuarioID) {
             <div class="line"></div>
             <div class="line"></div>
         </label>
-    </nav>
-    <nav class="menu_abajo">
-        <ul class="lista_abajo">
-            <li><a href="funcionario-insumos.php">Insumos</a></li>
-            <li><a href="funcionario-prestado.php"><i class="fa-solid fa-plus"></i> Prestado</a></li>
-        </ul>
     </nav>
     <div class="container">
         <div class="content">
