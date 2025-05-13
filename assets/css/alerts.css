@@ -1,8 +1,8 @@
 #mensaje-alerta {
-    margin-top: 20px; /* Añade espacio desde la parte superior */
+    margin-top: 20px; 
     padding: 10px;
-    background-color: #f8d7da; /* Ejemplo de color de fondo para alerta de error */
-    color: #721c24; /* Ejemplo de color de texto */
+    background-color: #f8d7da;
+    color: #721c24; 
     border: 1px solid #f5c6cb;
     border-radius: 5px;
     position: relative;
