@@ -11,7 +11,7 @@ body {
 
 main {
     margin-top: 80px;
-    margin-left: 200px;/
+    margin-left: 200px;
 }
 
 /*estilos para el header*/
@@ -160,7 +160,7 @@ main {
     justify-content: flex-end;
 }
 
-.button-eliminar {
+.my-button-eliminar {
     background-color: #e74c3c;
     color: #fff;
     border: none;
@@ -174,7 +174,7 @@ main {
     gap: 0.5rem;
 }
 
-.button-eliminar:hover {
+.my-button-eliminar:hover {
     background-color: #c0392b;
 }
 

@@ -89,3 +89,86 @@ VALUES
     (9, 'Tablets'),
     (6, 'Teclados '),
     (4, 'VideoBean');
+
+INSERT INTO
+    `insumos` (
+        `id`,
+        `tipo_id_nombre`,
+        `Descripcion`,
+        `Cantidad`,
+        `Estado`,
+        `FechaRegistro`
+    )
+VALUES
+    (
+        1,
+        5,
+        'Borra que borra todo ',
+        10,
+        'Disponible',
+        '2025-05-12 14:01:00'
+    ),
+    (
+        2,
+        7,
+        'Lapicero color negro',
+        15,
+        'Disponible',
+        '2025-05-12 14:02:00'
+    ),
+    (
+        3,
+        3,
+        'Marcador color azul',
+        5,
+        'Disponible',
+        '2025-05-12 14:02:00'
+    ),
+    (
+        4,
+        8,
+        'logitech',
+        9,
+        'Disponible',
+        '2025-05-12 14:02:00'
+    ),
+    (
+        5,
+        2,
+        'lenovo',
+        2,
+        'Disponible',
+        '2025-05-12 14:03:00'
+    ),
+    (
+        6,
+        1,
+        'Salon #1',
+        1,
+        'Disponible',
+        '2025-05-12 14:03:00'
+    ),
+    (
+        7,
+        9,
+        'Samsumg',
+        2,
+        'Disponible',
+        '2025-05-12 14:03:00'
+    ),
+    (
+        8,
+        6,
+        'Razer',
+        10,
+        'Disponible',
+        '2025-05-12 14:03:00'
+    ),
+    (
+        9,
+        4,
+        'Epson',
+        3,
+        'Disponible',
+        '2025-05-12 14:04:00'
+    );

@@ -29,14 +29,17 @@ include "../../ConexionSQL/paginacion.php";
 
 <body>
     <div class="boton-modal">
-        <label for="btn-modal" class="boton-new">Nuevo</label>
-    </div>
-    <div class="alertas">
-        <div><?=
-                $mensaje = "";
-                $mensaje ?></div>
+        <div class="buttons-group">
+            <label for="btn-modal" id="btn-nuevo" class="btn">Nuevo</label>
+            <button class="btn-imprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Buscar usuario..." class="input-search">
+        </div>
     </div>
     <input type="checkbox" id="btn-modal">
+    <div class="alertas"></div>
     <div class="container-form">
         <div class="crud">
             <table>
@@ -58,8 +61,7 @@ include "../../ConexionSQL/paginacion.php";
 
                     $sqlBase = "SELECT usuarios.id, usuarios.nombre, usuarios.email, usuarios.cedula, usuarios.contraseña, roles.descripcion AS rol 
                     FROM usuarios 
-                    INNER JOIN roles ON usuarios.id_roles = roles.id
-                    ORDER BY usuarios.id ASC";
+                    INNER JOIN roles ON usuarios.id_roles = roles.id";
 
                     $result = obtenerDatosPaginados($conn, $sqlBase, $paginaActual, $registrosPorPagina);
                     $totalPaginas = obtenerTotalPaginas($conn, $sqlBase, $registrosPorPagina);
@@ -97,6 +99,7 @@ include "../../ConexionSQL/paginacion.php";
             <div class="modal-header">
                 <h2><span id="modal-title">Nueva</span> Persona</h2>
             </div>
+            <div class="alertas-modal"></div>
             <div class="formulario">
                 <form method="POST" action="" id="formulario-usuario">
                     <div class="cotainer">

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $rolesPermitidos = [1];
-include "../../ConexionSQL/admin-scripts/eliminar-reserva.php";
+
 include "../../ConexionSQL/verificar-acceso.php";
 include "../../ConexionSQL/paginacion.php";
 include '../../assets/includes/header.php';
@@ -24,7 +24,9 @@ $sql = "SELECT
         INNER JOIN
             tipos_insumos t ON i.tipo_id_nombre = t.id
         WHERE 
-            r.Estado = 'Prestado'";
+            r.Estado = 'Prestado'
+        ORDER BY r.id ASC
+            ";
 
 $result = obtenerDatosPaginados($conn, $sql, $paginaActual, $registrosPorPagina);
 $totalPaginas = obtenerTotalPaginas($conn, $sql, $registrosPorPagina);
@@ -68,21 +70,18 @@ $totalPaginas = obtenerTotalPaginas($conn, $sql, $registrosPorPagina);
 
                 <?php else: ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
-                        <div class='card'>
+                        <div class='card' data-id="<?= $row['reserva_id'] ?>">
                             <h2 class='card-title'><?= htmlspecialchars($row['nomInsumo']) ?></h2>
                             <div class='card-details'>
                                 <p><i class='fas fa-box-open'></i> Cantidad: <span><?= $row['cantidad'] ?></span></p>
-                                <p><i class="fa-solid fa-pen-to-square"></i> Descripcion: <span><?= $row['insumo'] ?></span></p>
+                                <p><i class="fa-solid fa-pen-to-square"></i> Descripción: <span><?= $row['insumo'] ?></span></p>
                                 <p><i class='fas fa-user'></i> Funcionario: <span><?= htmlspecialchars($row['nombre_funcionario']) ?></span></p>
                                 <p><i class='fas fa-id-card'></i> Cédula: <span><?= $row['cedula_funcionario'] ?></span></p>
                             </div>
                             <div class='card-actions'>
-                                <form method='POST' action='../../ConexionSQL/admin-scripts/eliminar-insumo-prestado.php'>
-                                    <input type='hidden' name='reserva_id' value='<?= $row['reserva_id'] ?>'>
-                                    <input type='hidden' name='cantidad' value='<?= $row['cantidad'] ?>'>
-                                    <input type='hidden' name='insumo_id' value='<?= $row['insumo_id'] ?>'>
-                                    <button type='submit' class='button-eliminar'><i class='fas fa-trash-alt'></i> Remover</button>
-                                </form>
+                                <button type='button' class='my-button-eliminar' data-id='<?= $row['reserva_id'] ?>'>
+                                    <i class='fas fa-trash-alt'></i> Remover
+                                </button>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -94,6 +93,7 @@ $totalPaginas = obtenerTotalPaginas($conn, $sql, $registrosPorPagina);
         </section>
 
     </main>
+    <script src="../../ConexionSQL/Js/insumo-prestado.js"></script>
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 

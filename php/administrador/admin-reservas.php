@@ -86,8 +86,9 @@ include '../../assets/includes/sidebar.php';
                                     echo "<td>" . ($datos->EstadoInsumo ?? '') . "</td>";
                                     echo "<td>" . ($datos->FechaInicio ?? '') . "</td>";
                                     echo "<td>" . ($datos->FechaFin ?? '') . "</td>";
-                                    echo "<td><a href='admin-reservas.php?id=" . ($datos->id ?? '') . "'>
-                                    <button class='my-button-eliminar'>Eliminar</button></a></td>";
+                                    echo "<td>
+                                        <button class='my-button-eliminar' data-id='" . ($datos->id ?? '') . "'>Eliminar</button>
+                                        </td>";
                                     echo "</tr>";
                                 }
                             } else {
@@ -105,6 +106,7 @@ include '../../assets/includes/sidebar.php';
             </div>
         </section>
     </main>
+        <script src="../../ConexionSQL/Js/reserva.js"></script>
 </body>
 <script src="https://kit.fontawesome.com/69aa482bca.js" crossorigin="anonymous"></script>
 

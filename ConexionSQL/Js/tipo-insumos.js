@@ -138,12 +138,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchTerm = this.value.trim();
         if (searchTerm.length >= 1) {
             buscarInsumos(searchTerm);
-            // Ocultar la paginación mientras se busca
+
             if (paginationDiv) {
                 paginationDiv.style.display = 'none';
             }
         } else {
-            // Si el campo de búsqueda está vacío, recargar la página para mostrar la tabla paginada
             window.location.reload();
         }
     });

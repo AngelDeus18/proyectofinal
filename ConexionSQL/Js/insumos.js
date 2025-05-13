@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             tablaInsumosBody.innerHTML = data;
-            // Re-asignar data-id a las nuevas filas después de la búsqueda
             document.querySelectorAll('.crud tbody tr').forEach(row => {
                 const idCell = row.querySelector('td');
                 if (idCell) {

@@ -8,7 +8,79 @@ body {
     background: linear-gradient(135deg, #f6f9fc, #dbeafe);
     overflow-x: hidden;
 }
+/*botones*/
+.buttons-group {
+    display: flex;
+    gap: 10px;
+}
+.btn-imprimir {
+    background: linear-gradient(135deg, #838689, #7c7c7c);
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn {
+    background: linear-gradient(135deg, #4A90E2, #007BFF);
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
+.btn:hover {
+    background: linear-gradient(135deg, #357ABD, #005BB5);
+    transform: translateY(-2px);
+}
+.btn-imprimir:hover {
+    background: linear-gradient(135deg, #707374, #636363);
+    transform: translateY(-2px);
+}
+
+.search-box {
+    min-width: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-box i {
+    padding: 10px;
+    color: #888;
+}
+
+.input-search {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    border-radius: 0 12px 12px 0;
+}
+
+.input-search::placeholder {
+    color: #bbb;
+}
+
+.input-search:focus {
+    border-color: #4A90E2;
+}
+/*estilos para modal y  crud*/
 .container-form {
     margin-top: 250px;
     display: flex;
@@ -19,9 +91,11 @@ body {
 
 .crud {
     margin-top: -200px;
+    margin-left: 40px;
+    margin-right: 40px;
     overflow-x: auto;
     border-radius: 10px;
-    width: 90%;
+    width: 100%;
     max-height: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     animation: slideUp 1s ease-in-out;
@@ -147,8 +221,12 @@ td {
 }
 
 .boton-modal {
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 120px;
-    padding-left: 5%;
     animation: slideUp 1s ease-in-out;
 }
 
